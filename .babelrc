@@ -1,19 +1,27 @@
 {
-  "presets": [
-    ["env", {
-      "targets": {
-        "browsers": ["last 2 versions"]
-      },
-      "modules": false
-    }]
-  ],
-  "plugins": [
-    "transform-flow-strip-types",
-    "transform-object-rest-spread"
-  ],
   "env": {
     "test": {
-      "plugins": [ "istanbul" ]
+      "presets": [
+        "env"
+      ],
+      "plugins": [
+        "transform-flow-strip-types",
+        "transform-object-rest-spread"
+      ]
+    },
+    "production": {
+      "presets": [
+        ["env", {
+          "targets": {
+            "browsers": ["last 2 versions"]
+          },
+          "modules": false
+        }]
+      ],
+      "plugins": [
+        "transform-flow-strip-types",
+        "transform-object-rest-spread"
+      ]
     }
   }
 }

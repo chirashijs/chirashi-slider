@@ -2,57 +2,87 @@
 
 ### Table of Contents
 
--   [TEventEmitter](#teventemitter)
+-   [LoopingDirectionalSliderOptions](#loopingdirectionalslideroptions)
+-   [TLoopingDirectionalSlider](#tloopingdirectionalslider)
+-   [LoopingDirectionalSlider](#loopingdirectionalslider)
 -   [SliderOptions](#slideroptions)
 -   [TSlider](#tslider)
 -   [Slider](#slider)
 
-## TEventEmitter
+## LoopingDirectionalSliderOptions
 
-TEventEmitter type definition
+[lib/LoopingDirectionalSlider.js:8-13](https://github.com/chirashijs/chirashi-slider/blob/058ddb51bb4a5054baf0b043acbec327de2ecaea/lib/LoopingDirectionalSlider.js#L8-L13 "Source code on GitHub")
+
+Options accepted by LoopingDirectionalSlider factory function
+
+Type: any
+
+## TLoopingDirectionalSlider
+
+[lib/LoopingDirectionalSlider.js:18-20](https://github.com/chirashijs/chirashi-slider/blob/058ddb51bb4a5054baf0b043acbec327de2ecaea/lib/LoopingDirectionalSlider.js#L18-L20 "Source code on GitHub")
+
+LoopingDirectionalSlider type definition
+
+Type: any
+
+## LoopingDirectionalSlider
+
+[lib/LoopingDirectionalSlider.js:25-72](https://github.com/chirashijs/chirashi-slider/blob/058ddb51bb4a5054baf0b043acbec327de2ecaea/lib/LoopingDirectionalSlider.js#L25-L72 "Source code on GitHub")
+
+LoopingDirectionalSlider factory function
+
+**Parameters**
+
+-   `options` **[LoopingDirectionalSliderOptions](#loopingdirectionalslideroptions)** 
+
+Returns **[TLoopingDirectionalSlider](#tloopingdirectionalslider)** 
 
 ## SliderOptions
 
-Options supported by Slider
+[lib/Slider.js:8-13](https://github.com/chirashijs/chirashi-slider/blob/058ddb51bb4a5054baf0b043acbec327de2ecaea/lib/Slider.js#L8-L13 "Source code on GitHub")
 
-Type: {emitter: [TEventEmitter](#teventemitter), count: [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number), begin: [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?, loop: [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?, auto: [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?}
+Options accepted by the Slider factory function
+
+Type: {count: [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number), begin: [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?, loop: [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?, auto: [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?}
 
 **Properties**
 
--   `emitter` **[TEventEmitter](#teventemitter)** 
 -   `count` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
 -   `begin` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** 
 -   `loop` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** 
--   `auto` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** 
+-   `auto` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?** 
 
 ## TSlider
 
-TSlider type definition
+[lib/Slider.js:18-27](https://github.com/chirashijs/chirashi-slider/blob/058ddb51bb4a5054baf0b043acbec327de2ecaea/lib/Slider.js#L18-L27 "Source code on GitHub")
 
-Type: {current: [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number), on: TEventEmitter.on, off: TEventEmitter.off, slideUp: function (): [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number), slideDown: function (): [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number), slideTo: function (target: [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number), direction: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)): [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number), slideAuto: function (next: [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number), times: [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?): void, stopAuto: function (): void}
+Slider type definition
+
+Type: {getCurrent: function (): [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number), on: any, off: any, slideUp: function (): [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number), slideDown: function (): [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number), slideTo: function (target: [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number), direction: (`"up"` \| `"down"`)): [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number), slideAuto: function (delay: [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number), times: [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?): void, stopAuto: function (): void}
 
 **Properties**
 
--   `current` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
--   `on` **TEventEmitter.on** 
--   `off` **TEventEmitter.off** 
+-   `getCurrent` **function (): [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+-   `on` **any** 
+-   `off` **any** 
 -   `slideUp` **function (): [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
 -   `slideDown` **function (): [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
--   `slideTo` **function (target: [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number), direction: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)): [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
--   `slideAuto` **function (next: [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number), times: [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?): void** 
+-   `slideTo` **function (target: [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number), direction: (`"up"` \| `"down"`)): [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+-   `slideAuto` **function (delay: [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number), times: [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)?): void** 
 -   `stopAuto` **function (): void** 
 
 ## Slider
 
-TSlider factory function
+[lib/Slider.js:32-84](https://github.com/chirashijs/chirashi-slider/blob/058ddb51bb4a5054baf0b043acbec327de2ecaea/lib/Slider.js#L32-L84 "Source code on GitHub")
+
+Slider factory function
 
 **Parameters**
 
 -   `$0` **any** 
-    -   `$0.emitter`  
     -   `$0.count`  
     -   `$0.begin`   (optional, default `0`)
     -   `$0.loop`   (optional, default `false`)
-    -   `$0.auto`   (optional, default `false`)
+    -   `$0.auto`   (optional, default `0`)
 
 Returns **[TSlider](#tslider)** 

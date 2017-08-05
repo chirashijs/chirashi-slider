@@ -25,7 +25,7 @@ const config = {
 
 const banner =
   `/**\n` +
-  ` * ${moduleName}.js v${version}\n` +
+  ` * ${pkg.name}.js v${version}\n` +
   ` * (c) ${new Date().getFullYear()} ${pkg.author.name}\n` +
   ` * Released under MIT License.\n` +
   ` **/\n`
@@ -48,22 +48,19 @@ const targets = [
   {
     file: `${path}/${pkg.name}.js`,
     options: {
+      moduleName,
       banner,
       format: 'umd',
-      moduleName: moduleName
+      globals: {
+        'chirashi-event-emitter': 'ChirashiEventEmitter'
+      }
     },
     then (file, code) {
       file = file.split('.')
       file.splice(-1, 0, 'min')
       file = file.join('.')
 
-      const minified = banner + '\n' + uglify.minify(code, {
-        fromString: true,
-        output: {
-          screw_ie8: true,
-          ascii_only: true
-        }
-      }).code
+      const minified = banner + '\n' + uglify.minify(code).code
 
       const minifiedFile = file.split('/').pop()
       console.log(`${blue(minifiedFile)} ${green(`${getSize(minified)}kb`)}`)

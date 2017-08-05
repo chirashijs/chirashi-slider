@@ -1,58 +1,87 @@
 /**
- * ChirashiSlider.js v3.0.0
+ * chirashi-slider.js v3.0.0
  * (c) 2017 Alex Toudic
  * Released under MIT License.
  **/
 
 import EventEmitter from 'chirashi-event-emitter';
 
-var Slider = function Slider(_ref) {
-  var emitter = _ref.emitter,
-      count = _ref.count,
+/**
+ * Options accepted by the Slider factory function
+ */
+
+
+/**
+ * Slider type definition
+ */
+
+
+/**
+ * Slider factory function
+ */
+var Slider$1 = (function (_ref) {
+  var count = _ref.count,
       _ref$begin = _ref.begin,
       begin = _ref$begin === undefined ? 0 : _ref$begin,
       _ref$loop = _ref.loop,
-      loop = _ref$loop === undefined ? false : _ref$loop;
+      loop = _ref$loop === undefined ? false : _ref$loop,
+      _ref$auto = _ref.auto,
+      auto = _ref$auto === undefined ? 0 : _ref$auto;
 
-  if (!emitter) {
-    emitter = EventEmitter();
-  }
+  var _emitter = EventEmitter();
+  var _refreshId = void 0,
+      _refreshTimes = void 0;
+  var _current = begin;
 
-  var current = begin;
-
-  var slideTo = function slideTo(target) {
-    var previous = current;
-
-    current = loop ? (count + target % count) % count : Math.max(Math.min(target, count - 1), 0);
-
-    if (current !== previous) {
-      emitter.emit('update', current, previous);
+  var _applyAuto = function _applyAuto(delay) {
+    if (_refreshTimes-- !== 0) {
+      _refreshId = setTimeout(function () {
+        self.slideUp(true);
+        _applyAuto(delay);
+      }, delay);
     }
-
-    return current;
   };
 
-  var slideUp = function slideUp() {
-    return slideTo(current + 1);
-  };
-
-  var slideDown = function slideDown() {
-    return slideTo(current - 1);
-  };
-
-  return {
-    get current() {
-      return current;
+  var self = {
+    getCurrent: function getCurrent() {
+      return _current;
     },
 
-    on: emitter.on,
-    off: emitter.off,
 
-    slideTo: slideTo,
-    slideUp: slideUp,
-    slideDown: slideDown
+    on: _emitter.on,
+    off: _emitter.off,
+
+    slideUp: function slideUp() {
+      return self.slideTo(_current + 1, 'up');
+    },
+    slideDown: function slideDown() {
+      return self.slideTo(_current - 1, 'down');
+    },
+
+    slideTo: function slideTo(target, direction) {
+      var previous = _current;
+
+      _current = loop ? (count + target % count) % count : Math.max(Math.min(target, count - 1), 0);
+
+      if (_current !== previous) {
+        _emitter.emit('update', _current, previous, direction);
+      }
+
+      return _current;
+    },
+    slideAuto: function slideAuto(delay, times) {
+      _refreshTimes = times && times >= 0 ? times : -1;
+      _applyAuto(delay);
+    },
+    stopAuto: function stopAuto() {
+      clearTimeout(_refreshId);
+    }
   };
-};
+
+  if (auto) self.slideAuto(auto);
+
+  return self;
+});
 
 var _extends = Object.assign || function (target) {
   for (var i = 1; i < arguments.length; i++) {
@@ -68,26 +97,34 @@ var _extends = Object.assign || function (target) {
   return target;
 };
 
-var defaults$$1 = {
-  begin: 0
-};
+/**
+ * Options accepted by LoopingDirectionalSlider factory function
+ */
 
-var DirectionalSlider = function DirectionalSlider(options) {
-  var emitter = EventEmitter();
 
-  var base = Slider(_extends({}, options, { emitter: emitter, loop: true }));
-  var _slideUp = base.slideUp,
-      _slideDown = base.slideDown,
-      _slideTo = base.slideTo;
+/**
+ * LoopingDirectionalSlider type definition
+ */
 
-  var _defaults$options = _extends({}, defaults$$1, options),
-      begin = _defaults$options.begin,
-      count = _defaults$options.count,
-      itemsPerSlide = _defaults$options.itemsPerSlide;
+
+/**
+ * LoopingDirectionalSlider factory function
+ */
+var LoopingDirectionalSlider = (function (options) {
+  var slider = Slider$1(_extends({}, options, { loop: true }));
+
+  slider.on('update', function (current, previous, direction) {
+    return handleChange(current, direction);
+  });
+
+  var count = options.count,
+      itemsPerSlide = options.itemsPerSlide,
+      animHandler = options.animHandler;
+
 
   var blockSize = 1 + (count < itemsPerSlide ? Math.ceil((itemsPerSlide - count) / count) : 0);
 
-  var displayCurrent = count * blockSize + begin;
+  var displayCurrent = count * blockSize + slider.getCurrent();
 
   var handleChange = function handleChange(index, forcedDirection) {
     var previous = displayCurrent;
@@ -105,24 +142,16 @@ var DirectionalSlider = function DirectionalSlider(options) {
       delta = -downOffset < upOffset ? downOffset : upOffset;
     }
 
-    emitter.emit('animate', displayCurrent, previous + delta, previous);
+    animHandler(displayCurrent, previous + delta, previous);
+
+    return index;
   };
 
-  return Object.assign(base, {
-    get displayTimes() {
+  return _extends({}, slider, {
+    getDisplayTimes: function getDisplayTimes() {
       return blockSize * 3;
-    },
-
-    slideUp: function slideUp() {
-      handleChange(_slideUp(), 'up');
-    },
-    slideDown: function slideDown() {
-      handleChange(_slideDown(), 'down');
-    },
-    slideTo: function slideTo(index) {
-      handleChange(_slideTo(index));
     }
   });
-};
+});
 
-export { DirectionalSlider, Slider };
+export { Slider$1 as Slider, LoopingDirectionalSlider };export default Slider$1;
