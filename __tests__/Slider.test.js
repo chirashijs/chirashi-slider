@@ -59,7 +59,7 @@ describe('chirashi#Slider', () => {
   })
 
   it('should support event emission', done => {
-    const slider = Slider({ count: 2 })
+    const slider = Slider({ count: 2, auto: 100000 })
 
     const f = jest.fn()
 
