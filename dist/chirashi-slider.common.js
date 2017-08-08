@@ -1,5 +1,5 @@
 /**
- * chirashi-slider.js v3.0.0
+ * chirashi-slider.js v3.1.1
  * (c) 2017 Alex Toudic
  * Released under MIT License.
  **/
@@ -42,7 +42,7 @@ var Slider$1 = (function (_ref) {
   var _applyAuto = function _applyAuto(delay) {
     if (_refreshTimes-- !== 0) {
       _refreshId = setTimeout(function () {
-        self.slideUp(true);
+        self.slideUp();
         _applyAuto(delay);
       }, delay);
     }
@@ -76,7 +76,7 @@ var Slider$1 = (function (_ref) {
       return _current;
     },
     slideAuto: function slideAuto(delay, times) {
-      _refreshTimes = times && times >= 0 ? times : -1;
+      _refreshTimes = Boolean(times) && times >= 0 ? times : -1;
       _applyAuto(delay);
     },
     stopAuto: function stopAuto() {
@@ -154,6 +154,9 @@ var LoopingDirectionalSlider = (function (options) {
   };
 
   return _extends({}, slider, {
+    getDisplayed: function getDisplayed() {
+      return displayCurrent;
+    },
     getDisplayTimes: function getDisplayTimes() {
       return blockSize * 3;
     }

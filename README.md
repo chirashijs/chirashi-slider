@@ -79,10 +79,10 @@ slider.slideDown()
 
 #### Standalone
 
-You can download [chirashi-slider.js](https://github.com/chirashijs/chirashi-slider/releases/download/3.0.0/chirashi-slider.js) or [chirashi-slider.min.js](https://github.com/chirashijs/chirashi-slider/releases/download/3.0.0/chirashi-slider.min.js) and load it using a script tag. You can also use CDN version of those files from unpkg using the link [https://unpkg.com/chirashi-slider@latest/dist/chirashi-slider.min.js](https://unpkg.com/chirashi-slider@latest/dist/chirashi-slider.min.js). It'll create an instance of Chirashi on your window. Then use as following example
+You can download [chirashi-slider.js](https://github.com/chirashijs/chirashi-slider/releases/download/3.1.1/chirashi-slider.js) or [chirashi-slider.min.js](https://github.com/chirashijs/chirashi-slider/releases/download/3.1.1/chirashi-slider.min.js) and load it using a script tag. You can also use CDN version of those files from unpkg using the link [https://unpkg.com/chirashi-slider@latest/dist/chirashi-slider.min.js](https://unpkg.com/chirashi-slider@latest/dist/chirashi-slider.min.js). It'll create an instance of Chirashi on your window. Then use as following example
 
 ```js
-const slider = ChirashiSlider({ count: 2 })
+const slider = ChirashiSlider.Slider({ count: 2 })
 
 slider.slideUp()
 slider.getCurrent() // 1

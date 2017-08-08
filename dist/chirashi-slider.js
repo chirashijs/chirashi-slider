@@ -1,5 +1,5 @@
 /**
- * chirashi-slider.js v3.0.0
+ * chirashi-slider.js v3.1.1
  * (c) 2017 Alex Toudic
  * Released under MIT License.
  **/
@@ -7,10 +7,10 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('chirashi-event-emitter')) :
 	typeof define === 'function' && define.amd ? define(['exports', 'chirashi-event-emitter'], factory) :
-	(factory((global.ChirashiSlider = global.ChirashiSlider || {}),global.ChirashiEventEmitter));
+	(factory((global.ChirashiSlider = {}),global.ChirashiEventEmitter));
 }(this, (function (exports,EventEmitter) { 'use strict';
 
-EventEmitter = 'default' in EventEmitter ? EventEmitter['default'] : EventEmitter;
+EventEmitter = EventEmitter && EventEmitter.hasOwnProperty('default') ? EventEmitter['default'] : EventEmitter;
 
 /**
  * Options accepted by the Slider factory function
@@ -42,7 +42,7 @@ var Slider$1 = (function (_ref) {
   var _applyAuto = function _applyAuto(delay) {
     if (_refreshTimes-- !== 0) {
       _refreshId = setTimeout(function () {
-        self.slideUp(true);
+        self.slideUp();
         _applyAuto(delay);
       }, delay);
     }
@@ -76,7 +76,7 @@ var Slider$1 = (function (_ref) {
       return _current;
     },
     slideAuto: function slideAuto(delay, times) {
-      _refreshTimes = times && times >= 0 ? times : -1;
+      _refreshTimes = Boolean(times) && times >= 0 ? times : -1;
       _applyAuto(delay);
     },
     stopAuto: function stopAuto() {
@@ -154,6 +154,9 @@ var LoopingDirectionalSlider = (function (options) {
   };
 
   return _extends({}, slider, {
+    getDisplayed: function getDisplayed() {
+      return displayCurrent;
+    },
     getDisplayTimes: function getDisplayTimes() {
       return blockSize * 3;
     }

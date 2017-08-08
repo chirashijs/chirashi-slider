@@ -35,6 +35,7 @@ const targets = [
     file: pkg.main,
     options: {
       banner,
+      exports: 'named',
       format: 'cjs'
     }
   },
@@ -42,6 +43,7 @@ const targets = [
     file: pkg.module,
     options: {
       banner,
+      exports: 'named',
       format: 'es'
     }
   },
@@ -51,6 +53,7 @@ const targets = [
       moduleName,
       banner,
       format: 'umd',
+      exports: 'named',
       globals: {
         'chirashi-event-emitter': 'ChirashiEventEmitter'
       }
@@ -75,9 +78,9 @@ mkdirp.sync(path)
 
 rollup
   .rollup(config)
-  .then(bundle => {
+  .then(async bundle => {
     for (const target of targets) {
-      const result = bundle.generate(target.options)
+      const result = await bundle.generate(target.options)
 
       const file = target.file
 
