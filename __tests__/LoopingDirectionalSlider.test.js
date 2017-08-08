@@ -5,6 +5,12 @@ describe('chirashi#LoopingDirectionalSlider', () => {
     expect(typeof LoopingDirectionalSlider).toBe('function')
   })
 
+  it('should give current displayed item', () => {
+    const simpleSlider = LoopingDirectionalSlider({ count: 4, itemsPerSlide: 3 })
+
+    expect(simpleSlider.getDisplayed()).toBe(4)
+  })
+
   it('should compute repeat needed', () => {
     const simpleSlider = LoopingDirectionalSlider({ count: 4, itemsPerSlide: 3 })
 
